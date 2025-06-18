@@ -77,10 +77,12 @@ export const typography = {
   
   // Font Sizes (Based on typography hierarchy)
   fontSize: {
-    // H1: 52px/56px, Bold, 5% letter-spacing
-    'h1': ['3.25rem', { lineHeight: '3.5rem', letterSpacing: '0.05em', fontWeight: '700' }],
-    // H2: 24px/30px, Medium, 3% letter-spacing  
-    'h2': ['1.5rem', { lineHeight: '1.875rem', letterSpacing: '0.03em', fontWeight: '500' }],
+    // Hero: 112px/120px, Bold, 2% letter-spacing (for large hero sections)
+    'hero': ['7rem', { lineHeight: '7.5rem', letterSpacing: '0.02em', fontWeight: '700' }],
+    // H1: 52px/56px, Bold, 2% letter-spacing
+    'h1': ['3.25rem', { lineHeight: '3.5rem', letterSpacing: '0.02em', fontWeight: '700' }],
+    // H2: 24px/30px, Medium, 2% letter-spacing  
+    'h2': ['1.5rem', { lineHeight: '1.875rem', letterSpacing: '0.02em', fontWeight: '500' }],
     // H3: 20px/26px, Regular, 2% letter-spacing
     'h3': ['1.25rem', { lineHeight: '1.625rem', letterSpacing: '0.02em', fontWeight: '400' }],
     
@@ -103,6 +105,8 @@ export const typography = {
     '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
     '5xl': ['3rem', { lineHeight: '1' }],
     '6xl': ['3.75rem', { lineHeight: '1' }],
+    '7xl': ['4.5rem', { lineHeight: '1' }],
+    '8xl': ['6rem', { lineHeight: '1' }],
   },
   
   // Font Weights

@@ -152,16 +152,24 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }
 
+/* Hero size for extra large headings */
+.text-hero {
+  font-size: 7rem; /* 112px */
+  line-height: 7.5rem; /* 120px */
+  letter-spacing: 0.02em; /* 2% */
+  font-weight: 700;
+}
+
 h1 {
   font-size: 3.25rem; /* 52px */
   line-height: 3.5rem; /* 56px */
-  letter-spacing: 0.05em; /* 5% */
+  letter-spacing: 0.02em; /* 2% */
 }
 
 h2 {
   font-size: 1.5rem; /* 24px */
   line-height: 1.875rem; /* 30px */
-  letter-spacing: 0.03em; /* 3% */
+  letter-spacing: 0.02em; /* 2% */
   font-weight: 500;
 }
 

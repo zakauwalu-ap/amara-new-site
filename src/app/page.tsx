@@ -97,30 +97,39 @@ export default function HomePage() {
 
       {/* Typography Demo Section */}
       <section className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-6">
           <h2 className="font-serif text-brand-blue text-center mb-12">
             Typography System
           </h2>
-          <div className="space-y-8">
-            <div>
-              <h1 className="font-serif text-brand-blue mb-2">Heading 1 - Amara Serif</h1>
-              <p className="text-sm text-neutral-500">52px/56px, Bold, 5% letter-spacing</p>
+          <div className="space-y-12">
+            {/* Hero Text - Full Width */}
+            <div className="w-full">
+              <h1 className="font-serif text-hero text-brand-blue mb-4 text-center">Hero Sample Text</h1>
+              <p className="text-sm text-neutral-500 text-center">112px/120px, Bold, 2% letter-spacing</p>
             </div>
-            <div>
-              <h2 className="font-serif text-brand-blue mb-2">Heading 2 - Amara Serif</h2>
-              <p className="text-sm text-neutral-500">24px/30px, Medium, 3% letter-spacing</p>
-            </div>
-            <div>
-              <h3 className="font-serif text-brand-blue mb-2">Heading 3 - Amara Serif</h3>
-              <p className="text-sm text-neutral-500">20px/26px, Regular, 2% letter-spacing</p>
-            </div>
-            <div>
-              <p className="text-base mb-2">Body Text - Cabinet Grotesk Regular</p>
-              <p className="text-sm text-neutral-500">16px/24px, Regular, 0% letter-spacing</p>
-            </div>
-            <div>
-              <p className="text-sm mb-2">Secondary Body - Cabinet Grotesk Regular</p>
-              <p className="text-sm text-neutral-500">14px/20px, Regular, 0% letter-spacing</p>
+            
+            {/* Other Typography - Constrained Width */}
+            <div className="max-w-4xl mx-auto space-y-8">
+              <div>
+                <h1 className="font-serif text-brand-blue mb-2">Heading 1 - Amara Serif</h1>
+                <p className="text-sm text-neutral-500">52px/56px, Bold, 2% letter-spacing</p>
+              </div>
+              <div>
+                <h2 className="font-serif text-brand-blue mb-2">Heading 2 - Amara Serif</h2>
+                <p className="text-sm text-neutral-500">24px/30px, Medium, 2% letter-spacing</p>
+              </div>
+              <div>
+                <h3 className="font-serif text-brand-blue mb-2">Heading 3 - Amara Serif</h3>
+                <p className="text-sm text-neutral-500">20px/26px, Regular, 2% letter-spacing</p>
+              </div>
+              <div>
+                <p className="text-base mb-2">Body Text - Cabinet Grotesk Regular</p>
+                <p className="text-sm text-neutral-500">16px/24px, Regular, 0% letter-spacing</p>
+              </div>
+              <div>
+                <p className="text-sm mb-2">Secondary Body - Cabinet Grotesk Regular</p>
+                <p className="text-sm text-neutral-500">14px/20px, Regular, 0% letter-spacing</p>
+              </div>
             </div>
           </div>
         </div>

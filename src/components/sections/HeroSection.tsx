@@ -3,7 +3,7 @@ import { BackgroundBeams } from '@/components/ui/background-beams';
 
 const HeroSection = () => {
   return (
-    <section className="min-h-screen bg-blue-300">
+    <section className="h-screen flex flex-col bg-blue-300">
       {/* Navigation Bar */}
       <nav className="w-full bg-green-400 px-2 py-4">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
@@ -18,7 +18,7 @@ const HeroSection = () => {
 
       {/* Main Grid Container - Responsive */}
       <div 
-        className="relative min-h-screen"
+        className="relative flex-1"
         style={{
           display: 'grid',
           gridTemplateRows: 'repeat(8, 1fr)',

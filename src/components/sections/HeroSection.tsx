@@ -1,8 +1,9 @@
 import Image from 'next/image';
+import { BackgroundBeams } from '@/components/ui/background-beams';
 
 const HeroSection = () => {
   return (
-    <section className="min-h-screen bg-white">
+    <section className="min-h-screen bg-blue-300">
       {/* Navigation Bar */}
       <nav className="w-full bg-green-400 px-2 py-4">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
@@ -31,13 +32,13 @@ const HeroSection = () => {
         
         {/* Left Content Area - Excellence. Redefined. */}
         <div 
-          className="bg-gray-200 p-3 sm:p-4 md:p-6 flex flex-col justify-center"
+          className="bg-gray-200 p-3 sm:p-4 md:p-6 flex flex-col justify-center border-2 border-black"
           style={{
-            gridRow: '2 / 5',
-            gridColumn: '1 / 7'
+            gridRow: '2 / 4',
+            gridColumn: '1 / 5'
           }}
         >
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black leading-tight">
+          <h1 className="text-h1 font-bold text-black leading-tight">
             Excellence.<br />
             Redefined.
           </h1>
@@ -48,7 +49,7 @@ const HeroSection = () => {
           className="bg-gray-300 p-3 sm:p-4 md:p-6 flex items-center"
           style={{
             gridRow: '5 / 8',
-            gridColumn: '2 / 9'
+            gridColumn: '2 / 6'
           }}
         >
           <p className="text-black text-sm sm:text-base leading-relaxed">
@@ -58,21 +59,13 @@ const HeroSection = () => {
 
         {/* Right Canvas Area - Updated positioning */}
         <div 
-          className="flex items-center justify-center text-black text-lg sm:text-xl md:text-2xl font-bold ml-2 p-2"
+          className="relative overflow-hidden ml-2 border-l-4 border-black"
           style={{
             gridRow: '1 / 9',
-            gridColumn: '6 / 13',
-            backgroundColor: '#F87171' // Using a coral/pink color similar to the image
+            gridColumn: '6 / 13'
           }}
         >
-          <div className="text-center">
-            CANVAS<br />
-            ELEMENT FOR<br />
-            ANIMATED<br />
-            BACKGROUND.<br />
-            EMPTY FOR<br />
-            NOW
-          </div>
+          <BackgroundBeams />
         </div>
       </div>
     </section>

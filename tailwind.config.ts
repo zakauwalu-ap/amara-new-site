@@ -48,6 +48,9 @@ export default {
       borderRadius: theme.borderRadius,
       zIndex: theme.zIndex,
       transitionDuration: theme.duration,
+      gridTemplateColumns: {
+        '16': 'repeat(16, minmax(0, 1fr))',
+      },
     },
   },
   plugins: [],

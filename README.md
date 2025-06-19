@@ -187,46 +187,84 @@ public/
 
 ## 🏗️ Layout System
 
-### PrecisionGrid
+### Component Architecture
 
-The site uses a custom **PrecisionGrid** responsive layout system that provides pixel-perfect control over element placement across different screen sizes.
+#### Named Component Extraction
 
-**📖 Complete Documentation**: See [PRECISION-GRID-SYSTEM.md](./PRECISION-GRID-SYSTEM.md) for comprehensive documentation including:
-- Responsive breakpoint configurations (Mobile 4×12, Tablet 8×10, Desktop 12×16)
-- Component API and usage examples
-- Coordinate system and positioning
-- Debug features and troubleshooting
-- Technical implementation details
-- Best practices
+For complex sections, we follow a **component extraction pattern** that breaks down monolithic components into clearly named, focused sub-components.
 
-#### Quick Start
-
+**Example Structure**
 ```tsx
-import { 
-  PrecisionGrid, 
-  GridItem,
-  GridDebugProvider,
-  GridDebugToggle 
-} from '@/components/ui/precision-grid';
+// ==================== EXTRACTED COMPONENTS ====================
 
-<GridDebugProvider>
-  <PrecisionGrid>
-    <GridItem 
-      gridArea={{
-        desktop: [5, 13, 7, 12],
-        tablet: [6, 10, 5, 8], 
-        mobile: [3, 9, 1, 5]
-      }}
+const SectionBackground = () => (
+  <div 
+    data-testid="section-background"
+    data-component="section-background"
+  >
+    {/* Background implementation */}
+  </div>
+);
+
+const SectionContent = () => (
+  <div 
+    data-testid="section-content"
+    data-component="section-content"
+  >
+    {/* Main content area */}
+  </div>
+);
+
+const SectionImage = () => (
+  <div 
+    data-testid="section-image"  
+    data-component="section-image"
+  >
+    {/* Image implementation */}
+  </div>
+);
+
+// ==================== MAIN SECTION ====================
+
+const MainSection = () => {
+  return (
+    <section 
+      data-testid="main-section"
+      data-component="main-section"
     >
-      <div>Responsive content</div>
-    </GridItem>
-    <GridDebugToggle />
-  </PrecisionGrid>
-</GridDebugProvider>
+      <SectionBackground />
+      <SectionContent />
+      <SectionImage />
+    </section>
+  );
+};
 ```
 
-#### Debug Mode
-Toggle the grid debug visualization to see cell boundaries and coordinates during development.
+#### Component Identification Standards
+
+**Data Attributes for Element Identification:**
+- `data-testid`: For automated testing and QA identification
+- `data-component`: For development/debugging and clear communication
+
+**Benefits:**
+- **Clear Communication**: "Adjust the HeroContent positioning" vs "adjust the content in the hero"
+- **Easier Maintenance**: Smaller, focused components are easier to modify
+- **Better Testing**: Each component can be tested independently
+- **Improved Debugging**: Clear component boundaries in dev tools
+
+#### Naming Conventions
+
+**Component Names:**
+- Use descriptive, semantic names that clearly indicate purpose
+- Follow PascalCase for component names
+- Prefix with parent component name for clarity (e.g., `SectionContent`, `SectionImage`)
+
+**Data Attribute Values:**
+- Use kebab-case for data attribute values
+- Match component names but in lowercase with hyphens
+- Be consistent across the entire application
+
+This pattern is applied throughout the application for maintainable, communicable code architecture.
 
 ## 🛠️ Development
 
@@ -299,7 +337,7 @@ className="text-base lg:text-hero"
 The project is now ready for development! We'll build the website section by section:
 
 1. **Navigation Header** - Logo, menu, contact info
-2. **Hero Section** - Main banner with call-to-action
+2. **Hero Section** - Main banner with call-to-action (ready to be built from scratch)
 3. **About Section** - Firm overview and values
 4. **Services Section** - Legal practice areas
 5. **Team Section** - Attorney profiles
@@ -312,15 +350,6 @@ The project is now ready for development! We'll build the website section by sec
 This project is ready to deploy on Vercel, Netlify, or any platform that supports Next.js.
 
 ## 📚 Documentation
-
-### Core System Documentation
-
-- **[PrecisionGrid System](./PRECISION-GRID-SYSTEM.md)** - Comprehensive guide to the responsive grid layout system
-  - Responsive breakpoint configurations (Mobile, Tablet, Desktop)
-  - Component API reference and usage examples
-  - Coordinate system and positioning methodology
-  - Debug features and development workflow
-  - Technical implementation details and best practices
 
 ### Project Documentation
 

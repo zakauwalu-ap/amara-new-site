@@ -1,91 +1,117 @@
-import { 
-  PrecisionGrid, 
-  GridItem,
-  GridDebugToggle,
-  GridDebugProvider
-} from '@/components/ui/precision-grid';
-import { createResponsiveGridArea } from '@/lib/utils';
+import React from 'react';
+import Image from 'next/image';
+
+// Sub-component for the navigation bar
+const HeroNavigation: React.FC = () => {
+  return (
+    <nav 
+      className="w-full bg-white border-b border-neutral-200 px-6 py-4"
+      data-component="hero-navigation"
+      data-testid="hero-navigation"
+    >
+      <div className="max-w-7xl mx-auto flex items-center justify-between">
+        {/* Logo placeholder */}
+        <div className="flex items-center">
+          <div className="w-32 h-8 bg-primary-500 rounded flex items-center justify-center">
+            <span className="text-white text-sm font-medium">Logo</span>
+          </div>
+        </div>
+        
+        {/* Navigation items placeholder */}
+        <div className="hidden md:flex items-center space-x-8">
+          <a href="#" className="text-neutral-700 hover:text-primary-500 transition-colors">
+            About
+          </a>
+          <a href="#" className="text-neutral-700 hover:text-primary-500 transition-colors">
+            Services
+          </a>
+          <a href="#" className="text-neutral-700 hover:text-primary-500 transition-colors">
+            Team
+          </a>
+          <a href="#" className="text-neutral-700 hover:text-primary-500 transition-colors">
+            Contact
+          </a>
+        </div>
+        
+        {/* Mobile menu button placeholder */}
+        <div className="md:hidden">
+          <button className="w-6 h-6 bg-neutral-300 rounded flex items-center justify-center">
+            <span className="text-xs">☰</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+  );
+};
 
 // ==================== EXTRACTED COMPONENTS ====================
 
-const HeroMobileBackground = () => (
-  <div 
-    className="absolute inset-0 md:hidden -z-10"
-    data-testid="hero-mobile-background"
-    data-component="hero-mobile-background"
-  >
-    <img 
-      src="/sora-pics/charcoal-and-blue-cubes.png"
-      alt="Professional Legal Services"
-      className="w-full h-full object-cover opacity-20"
-    />
-    <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/40 to-white/80" />
-  </div>
-);
-
-const HeroContent = () => (
-  <GridItem 
-    gridArea={{
-      desktop: [4, 14, 9, 16],    // Desktop: Right side content area
-      tablet: [3, 8, 2, 8],      // Tablet: Adjusted for 8×10 grid
-      mobile: [3, 9, 1, 5]       // Mobile: Top half, centered
-    }}
-    className="flex flex-col justify-center p-4 md:p-6 lg:p-8 z-10"
-    data-testid="hero-content"
-    data-component="hero-content"
-  >
-    <div className="max-w-2xl lg:max-w-4xl">
-      <h1 className="font-serif text-2xl md:text-4xl lg:text-h1 text-brand-blue mb-4 md:mb-6">
-        Excellence in Legal Services
-      </h1>
-      <p className="text-body-md md:text-body-lg text-neutral-600 mb-6 md:mb-8">
-        Professional legal representation you can trust. We provide comprehensive 
-        legal services with a commitment to excellence and client satisfaction.
-      </p>
+const HeroImageContainer: React.FC = () => {
+  return (
+    <div 
+      className="lg:col-start-2 lg:col-end-10 flex items-center justify-center"
+      data-testid="hero-image-container"
+      data-component="hero-image-container"
+    >
+      <div className="relative w-full h-full min-h-[400px] lg:min-h-[500px]">
+        <Image
+          src="/sora-pics/textured-geological-layers.png"
+          alt="Textured geological layers representing the solid foundation of legal expertise"
+          fill
+          className="object-cover rounded-lg"
+          priority
+        />
+      </div>
     </div>
-  </GridItem>
-);
+  );
+};
 
-const HeroImage = () => (
-  <GridItem 
-    gridArea={{
-      desktop: [3, 14, 2, 9],   // Desktop: Left side image
-      tablet: [6, 10, 5, 8],    // Tablet: Smaller right section
-      mobile: [9, 12, 1, 5]     // Mobile: Bottom section (will be hidden)
-    }}
-    className="relative hidden md:block"
-    data-testid="hero-image"
-    data-component="hero-image"
-  >
-    <div className="h-full w-full relative overflow-hidden">
-      <img 
-        src="/sora-pics/geometric-precision-structure-1.png"
-        alt="Professional Legal Services"
-        className="w-full h-full object-cover"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-brand-blue/20 to-transparent" />
+const HeroContentContainer: React.FC = () => {
+  return (
+    <div 
+      className="lg:col-start-10 lg:col-end-17 flex items-center justify-start lg:pl-8"
+      data-testid="hero-content-container"
+      data-component="hero-content-container"
+    >
+      <div className="max-w-lg">
+        <h1 className="font-serif text-hero text-brand-blue leading-tight tracking-wide">
+          <span className="block">redefining</span>
+          <span className="block">legal excellence</span>
+        </h1>
+      </div>
     </div>
-  </GridItem>
-);
+  );
+};
 
-// ==================== MAIN HERO SECTION ====================
+// Sub-component for the hero banner content
+const HeroBanner: React.FC = () => {
+  return (
+    <div 
+      className="flex-1 bg-neutral-50 px-6 py-12"
+      data-component="hero-banner"
+      data-testid="hero-banner"
+    >
+      {/* 16-column grid container */}
+      <div className="w-full h-full grid grid-cols-1 lg:grid-cols-16 gap-4 max-w-screen-2xl mx-auto">
+        <HeroImageContainer />
+        <HeroContentContainer />
+      </div>
+    </div>
+  );
+};
 
-const HeroSection = () => {
+// ==================== MAIN SECTION ====================
+
+// Main HeroSection component
+const HeroSection: React.FC = () => {
   return (
     <section 
-      className="w-screen h-screen relative"
-      data-testid="hero-section"
+      className="w-full h-screen flex flex-col"
       data-component="hero-section"
+      data-testid="hero-section"
     >
-      <HeroMobileBackground />
-      
-      <GridDebugProvider>
-        <PrecisionGrid>
-          <HeroContent />
-          <HeroImage />
-          <GridDebugToggle />
-        </PrecisionGrid>
-      </GridDebugProvider>
+      <HeroNavigation />
+      <HeroBanner />
     </section>
   );
 };

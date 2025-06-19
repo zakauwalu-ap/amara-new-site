@@ -30,10 +30,10 @@ export const PrecisionGrid = ({ children, className }: Omit<PrecisionGridProps, 
     <div 
       className={cn(
         "precision-grid", // For debug styling
-        "relative w-full h-screen",
+        "relative w-screen h-screen",
         // 12 columns with 8rem (128px) margin and 1.5rem (24px) gutters
         "grid grid-cols-12 grid-rows-[repeat(16,1fr)]",
-        "mx-32", // 8rem horizontal margins
+        "px-32", // 8rem horizontal padding (not margin)
         "gap-x-6 gap-y-6", // 1.5rem gutters
         "py-0", // 0 vertical margin
         className
@@ -86,45 +86,29 @@ export const AbsoluteItem = ({ children, position, className, zIndex = 10 }: Abs
   );
 };
 
-// Debug Grid Overlay
+// Debug Grid Overlay - matches the actual CSS Grid positioning
 const GridDebugOverlay = () => {
   return (
     <>
-      {/* Grid lines */}
-      <div className="absolute inset-0 pointer-events-none z-[9999]">
-        {/* Column lines */}
-        {Array.from({ length: 13 }, (_, i) => (
-          <div
-            key={`col-${i}`}
-            className="absolute top-0 bottom-0 w-px bg-red-300/50"
-            style={{
-              left: `${(i / 12) * 100}%`,
-            }}
-          />
-        ))}
-        {/* Row lines */}
-        {Array.from({ length: 17 }, (_, i) => (
-          <div
-            key={`row-${i}`}
-            className="absolute left-0 right-0 h-px bg-red-300/50"
-            style={{
-              top: `${(i / 16) * 100}%`,
-            }}
-          />
-        ))}
-        {/* Grid cell numbers */}
+      {/* Create a grid that mirrors the actual CSS Grid structure */}
+      <div 
+        className="absolute inset-0 pointer-events-none z-[9999] grid grid-cols-12 grid-rows-[repeat(16,1fr)] px-32 gap-x-6 gap-y-6"
+      >
+        {/* Generate grid cells with numbers and borders */}
         {Array.from({ length: 16 }, (_, row) =>
           Array.from({ length: 12 }, (_, col) => (
             <div
               key={`cell-${row}-${col}`}
-              className="absolute text-xs text-red-400/70 font-mono pointer-events-none"
+              className="relative border border-red-300/30"
               style={{
-                top: `${((row + 0.5) / 16) * 100}%`,
-                left: `${((col + 0.5) / 12) * 100}%`,
-                transform: 'translate(-50%, -50%)',
+                gridRow: row + 1,
+                gridColumn: col + 1,
               }}
             >
-              {row + 1},{col + 1}
+              {/* Cell number */}
+              <div className="absolute inset-0 flex items-center justify-center text-xs text-red-400/70 font-mono">
+                {row + 1},{col + 1}
+              </div>
             </div>
           ))
         )}
@@ -150,40 +134,7 @@ export const GridDebugProvider = ({ children }: { children: ReactNode }) => {
   return (
     <DebugContext.Provider value={{ showDebug, toggleDebug }}>
       {children}
-      {/* Apply debug styles globally when enabled */}
-      {showDebug && (
-        <style jsx global>{`
-          .precision-grid {
-            position: relative;
-          }
-          .precision-grid::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-              repeating-linear-gradient(
-                to right,
-                transparent,
-                transparent calc((100% - 16rem) / 12 - 1px),
-                rgba(239, 68, 68, 0.15) calc((100% - 16rem) / 12),
-                rgba(239, 68, 68, 0.15) calc((100% - 16rem) / 12 + 1px)
-              ),
-              repeating-linear-gradient(
-                to bottom,
-                transparent,
-                transparent calc(100% / 16 - 1px),
-                rgba(239, 68, 68, 0.15) calc(100% / 16),
-                rgba(239, 68, 68, 0.15) calc(100% / 16 + 1px)
-              );
-            pointer-events: none;
-            z-index: 9998;
-            margin: 0 8rem;
-          }
-        `}</style>
-      )}
+
     </DebugContext.Provider>
   );
 };

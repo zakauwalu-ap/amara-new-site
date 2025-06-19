@@ -185,6 +185,64 @@ public/
 └── [logo files]          # Brand assets
 ```
 
+## 🏗️ Layout System
+
+### PrecisionGrid
+
+The site uses a custom hybrid layout system called **PrecisionGrid** that combines CSS Grid with absolute positioning capabilities.
+
+#### Grid Structure
+- **12 columns × 16 rows** responsive grid system
+- **128px horizontal margins** (`px-32`)
+- **24px gutters** throughout (`gap-6`)
+- **Full viewport height** (`h-screen`)
+- **Viewport width** (`w-screen`)
+
+#### Usage
+
+**Grid Items** - Use `GridItem` for elements that follow the grid structure:
+```tsx
+import { GridItem, PrecisionGrid } from '@/components/ui/precision-grid';
+
+// Place element from position (2,2) to position (12,5) inclusive
+<GridItem gridArea={[2, 13, 2, 6]}>
+  <div>Your content</div>
+</GridItem>
+```
+
+**Absolute Items** - Use `AbsoluteItem` for floating elements:
+```tsx
+import { AbsoluteItem } from '@/components/ui/precision-grid';
+
+// Float element at 10% from top, 85% from left, 12% width, 8% height
+<AbsoluteItem position={[10, 85, 12, 8]}>
+  <div>Floating content</div>
+</AbsoluteItem>
+```
+
+#### Coordinate System
+- **Grid coordinates**: `[row-start, row-end+1, col-start, col-end+1]`
+  - When you say "from 2,2 to 12,5", use `[2, 13, 2, 6]` (CSS Grid uses exclusive end values)
+- **Absolute coordinates**: `[top%, left%, width%, height%]`
+
+#### Debug Mode
+Toggle the grid debug visualization to see cell boundaries and numbers:
+```tsx
+import { GridDebugProvider, GridDebugToggle } from '@/components/ui/precision-grid';
+
+<GridDebugProvider>
+  <PrecisionGrid>
+    {/* Your content */}
+    <GridDebugToggle />
+  </PrecisionGrid>
+</GridDebugProvider>
+```
+
+#### Responsive Behavior
+- **Desktop**: 12×16 grid (default)
+- **Tablet**: 8×10 grid (future implementation)
+- **Mobile**: 4×12 grid (future implementation)
+
 ## 🛠️ Development
 
 ### Getting Started

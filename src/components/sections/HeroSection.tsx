@@ -1,5 +1,6 @@
 import { 
   PrecisionGrid, 
+  GridItem,
   GridDebugToggle,
   GridDebugProvider
 } from '@/components/ui/precision-grid';
@@ -9,7 +10,7 @@ const HeroSection = () => {
     <section className="w-screen h-screen">
       <GridDebugProvider>
         <PrecisionGrid>
-          {/* Empty grid - ready for content */}
+          {/* Content will be placed here */}
           
           {/* Debug toggle */}
           <GridDebugToggle />

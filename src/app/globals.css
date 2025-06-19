@@ -221,3 +221,24 @@ p {
     scroll-behavior: auto !important;
   }
 }
+
+/* Responsive Grid Positioning for PrecisionGrid */
+.responsive-grid-item {
+  /* Mobile positioning applied by default via inline styles */
+}
+
+/* Tablet breakpoint - use tablet positioning */
+@media (min-width: 768px) {
+  .responsive-grid-item {
+    grid-row: var(--tablet-row-start) / var(--tablet-row-end) !important;
+    grid-column: var(--tablet-col-start) / var(--tablet-col-end) !important;
+  }
+}
+
+/* Desktop breakpoint - use desktop positioning */
+@media (min-width: 1024px) {
+  .responsive-grid-item {
+    grid-row: var(--desktop-row-start) / var(--desktop-row-end) !important;
+    grid-column: var(--desktop-col-start) / var(--desktop-col-end) !important;
+  }
+}

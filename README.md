@@ -189,59 +189,44 @@ public/
 
 ### PrecisionGrid
 
-The site uses a custom hybrid layout system called **PrecisionGrid** that combines CSS Grid with absolute positioning capabilities.
+The site uses a custom **PrecisionGrid** responsive layout system that provides pixel-perfect control over element placement across different screen sizes.
 
-#### Grid Structure
-- **12 columns × 16 rows** responsive grid system
-- **128px horizontal margins** (`px-32`)
-- **24px gutters** throughout (`gap-6`)
-- **Full viewport height** (`h-screen`)
-- **Viewport width** (`w-screen`)
+**📖 Complete Documentation**: See [PRECISION-GRID-SYSTEM.md](./PRECISION-GRID-SYSTEM.md) for comprehensive documentation including:
+- Responsive breakpoint configurations (Mobile 4×12, Tablet 8×10, Desktop 12×16)
+- Component API and usage examples
+- Coordinate system and positioning
+- Debug features and troubleshooting
+- Technical implementation details
+- Best practices
 
-#### Usage
+#### Quick Start
 
-**Grid Items** - Use `GridItem` for elements that follow the grid structure:
 ```tsx
-import { GridItem, PrecisionGrid } from '@/components/ui/precision-grid';
-
-// Place element from position (2,2) to position (12,5) inclusive
-<GridItem gridArea={[2, 13, 2, 6]}>
-  <div>Your content</div>
-</GridItem>
-```
-
-**Absolute Items** - Use `AbsoluteItem` for floating elements:
-```tsx
-import { AbsoluteItem } from '@/components/ui/precision-grid';
-
-// Float element at 10% from top, 85% from left, 12% width, 8% height
-<AbsoluteItem position={[10, 85, 12, 8]}>
-  <div>Floating content</div>
-</AbsoluteItem>
-```
-
-#### Coordinate System
-- **Grid coordinates**: `[row-start, row-end+1, col-start, col-end+1]`
-  - When you say "from 2,2 to 12,5", use `[2, 13, 2, 6]` (CSS Grid uses exclusive end values)
-- **Absolute coordinates**: `[top%, left%, width%, height%]`
-
-#### Debug Mode
-Toggle the grid debug visualization to see cell boundaries and numbers:
-```tsx
-import { GridDebugProvider, GridDebugToggle } from '@/components/ui/precision-grid';
+import { 
+  PrecisionGrid, 
+  GridItem,
+  GridDebugProvider,
+  GridDebugToggle 
+} from '@/components/ui/precision-grid';
 
 <GridDebugProvider>
   <PrecisionGrid>
-    {/* Your content */}
+    <GridItem 
+      gridArea={{
+        desktop: [5, 13, 7, 12],
+        tablet: [6, 10, 5, 8], 
+        mobile: [3, 9, 1, 5]
+      }}
+    >
+      <div>Responsive content</div>
+    </GridItem>
     <GridDebugToggle />
   </PrecisionGrid>
 </GridDebugProvider>
 ```
 
-#### Responsive Behavior
-- **Desktop**: 12×16 grid (default)
-- **Tablet**: 8×10 grid (future implementation)
-- **Mobile**: 4×12 grid (future implementation)
+#### Debug Mode
+Toggle the grid debug visualization to see cell boundaries and coordinates during development.
 
 ## 🛠️ Development
 
@@ -326,180 +311,23 @@ The project is now ready for development! We'll build the website section by sec
 
 This project is ready to deploy on Vercel, Netlify, or any platform that supports Next.js.
 
+## 📚 Documentation
+
+### Core System Documentation
+
+- **[PrecisionGrid System](./PRECISION-GRID-SYSTEM.md)** - Comprehensive guide to the responsive grid layout system
+  - Responsive breakpoint configurations (Mobile, Tablet, Desktop)
+  - Component API reference and usage examples
+  - Coordinate system and positioning methodology
+  - Debug features and development workflow
+  - Technical implementation details and best practices
+
+### Project Documentation
+
+- **[README.md](./README.md)** - Project overview, setup, and development guide
+- **[Design System](#design-system)** - Brand colors, typography, and spacing
+- **[Technology Stack](#technology-stack)** - Framework and library information
+
 ---
 
 Ready to start building your professional law firm website! 🏛️
-
-## 🎯 Precision Layout System
-
-### Overview
-
-The **Precision Layout System** provides pixel-perfect control for element placement using a hybrid approach:
-
-- **12 Columns × 16 Rows** main grid
-- **8rem (128px) horizontal margins**
-- **1.5rem (24px) gutters** for both columns and rows
-- **Absolute positioning** for off-grid elements
-- **Visual debugging tools** for development
-
-### Grid Specifications
-
-```
-Columns: 12 (1fr each)
-Rows: 16 (1fr each)
-Horizontal Margin: 8rem (128px) - spacing-32
-Column Gutter: 1.5rem (24px) - spacing-6
-Row Gutter: 1.5rem (24px) - spacing-6
-Vertical Margin: 0
-```
-
-### Communication Protocol
-
-Use this format for precise element placement:
-
-#### Grid Elements
-```
-"Place [element] at grid [row-start, row-end, col-start, col-end]"
-
-Examples:
-- "Place the logo at grid [1, 2, 1, 3]"
-- "Put hero text at grid [3, 6, 2, 8] with center alignment"
-- "Position the contact form at grid [8, 12, 7, 12]"
-```
-
-#### Absolute Elements (Off-Grid)
-```
-"Float [element] at absolute [top%, left%, width%, height%]"
-
-Examples:
-- "Float contact button at absolute [5, 85, 12, 8]" 
-- "Overlay background pattern at absolute [0, 0, 100, 100] with z-index -1"
-- "Position floating CTA at absolute [50, 90, 15, 6]"
-```
-
-### Components
-
-#### PrecisionGrid
-Main container component that establishes the 12×16 grid system.
-
-```tsx
-import { PrecisionGrid } from '@/components/ui/precision-grid';
-
-<PrecisionGrid className="bg-white">
-  {/* Grid and absolute items go here */}
-</PrecisionGrid>
-```
-
-#### GridItem
-For elements that align to the grid system.
-
-```tsx
-import { GridItem } from '@/components/ui/precision-grid';
-
-<GridItem 
-  gridArea={[1, 3, 1, 4]}  // row 1-3, col 1-4
-  className="bg-brand-blue p-6"
->
-  <h1>Grid-aligned content</h1>
-</GridItem>
-```
-
-#### AbsoluteItem
-For elements that need precise positioning outside the grid.
-
-```tsx
-import { AbsoluteItem } from '@/components/ui/precision-grid';
-
-<AbsoluteItem 
-  position={[10, 85, 15, 8]}  // 10% top, 85% left, 15% width, 8% height
-  className="bg-brand-gold"
-  zIndex={50}
->
-  <button>Floating CTA</button>
-</AbsoluteItem>
-```
-
-### Visual Debugging
-
-#### GridDebugToggle
-Add to any page for development visualization (must be within GridDebugProvider):
-
-```tsx
-import { GridDebugToggle, GridDebugProvider } from '@/components/ui/precision-grid';
-
-// Wrap your page/component with the provider
-<GridDebugProvider>
-  {/* Your grid content */}
-  <GridDebugToggle />
-</GridDebugProvider>
-```
-
-**Features:**
-- Toggles grid line visibility
-- Shows cell coordinates (row, col)
-- Discreet bottom-right button
-- Red semi-transparent overlay
-- Does not affect layout or functionality
-
-### Responsive Strategy
-
-The system uses rem-based units for proper scaling:
-
-- **16px = 1rem** (browser default)
-- All spacing uses rem units for consistent scaling
-- Grid maintains proportions across devices
-- Absolute positioning uses percentages for flexibility
-
-### Best Practices
-
-1. **Use Grid First**: Start with `GridItem` for structured layouts
-2. **Absolute for Overlays**: Use `AbsoluteItem` for floating elements, overlays, or decorative elements
-3. **Consistent Spacing**: Leverage the spacing scale (spacing-6, spacing-8, etc.)
-4. **Debug During Development**: Always use `GridDebugToggle` while positioning elements
-5. **Coordinate Reference**: Grid coordinates are 1-indexed (1,1 is top-left)
-
-### Example Usage
-
-```tsx
-import { 
-  PrecisionGrid, 
-  GridItem, 
-  AbsoluteItem, 
-  GridDebugToggle,
-  GridDebugProvider
-} from '@/components/ui/precision-grid';
-
-export default function HomePage() {
-  return (
-    <GridDebugProvider>
-      <PrecisionGrid>
-      {/* Logo - Top left */}
-      <GridItem gridArea={[1, 2, 1, 3]} className="flex items-center">
-        <img src="/logo.svg" alt="Logo" />
-      </GridItem>
-      
-      {/* Hero Text - Center left */}
-      <GridItem 
-        gridArea={[6, 10, 2, 8]} 
-        className="flex flex-col justify-center"
-      >
-        <h1 className="text-h1 text-brand-blue">Excellence. Redefined.</h1>
-        <p className="text-body-lg mt-4">Professional legal services.</p>
-      </GridItem>
-      
-      {/* Floating CTA */}
-      <AbsoluteItem 
-        position={[15, 85, 12, 6]}
-        className="bg-brand-gold rounded-lg flex items-center justify-center"
-        zIndex={50}
-      >
-        <button className="text-brand-dark font-medium">Contact Us</button>
-      </AbsoluteItem>
-      
-      {/* Debug toggle for development */}
-      <GridDebugToggle />
-    </PrecisionGrid>
-    </GridDebugProvider>
-  );
-}
-```

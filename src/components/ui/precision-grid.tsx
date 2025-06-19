@@ -10,7 +10,11 @@ interface PrecisionGridProps {
 
 interface GridItemProps {
   children: ReactNode;
-  gridArea: [number, number, number, number]; // [rowStart, rowEnd, colStart, colEnd]
+  gridArea: {
+    desktop: [number, number, number, number]; // [rowStart, rowEnd, colStart, colEnd] for lg+
+    tablet?: [number, number, number, number];  // [rowStart, rowEnd, colStart, colEnd] for md
+    mobile?: [number, number, number, number];  // [rowStart, rowEnd, colStart, colEnd] for sm and below
+  };
   className?: string;
 }
 
@@ -20,6 +24,13 @@ interface AbsoluteItemProps {
   className?: string;
   zIndex?: number;
 }
+
+// Grid configuration for different breakpoints
+const GRID_CONFIGS = {
+  mobile: { cols: 4, rows: 12 },   // sm and below
+  tablet: { cols: 8, rows: 10 },  // md
+  desktop: { cols: 12, rows: 16 }, // lg+
+} as const;
 
 // Main Grid Container
 export const PrecisionGrid = ({ children, className }: Omit<PrecisionGridProps, 'showDebug'>) => {
@@ -31,17 +42,18 @@ export const PrecisionGrid = ({ children, className }: Omit<PrecisionGridProps, 
       className={cn(
         "precision-grid", // For debug styling
         "relative w-screen h-screen",
-        // 12 columns with 8rem (128px) margin and 1.5rem (24px) gutters
-        "grid grid-cols-12 grid-rows-[repeat(16,1fr)]",
-        "px-32", // 8rem horizontal padding (not margin)
-        "gap-x-6 gap-y-6", // 1.5rem gutters
-        "py-0", // 0 vertical margin
+        // Mobile: 4 columns × 12 rows, smaller margins and gutters
+        "grid grid-cols-4 grid-rows-[repeat(12,1fr)]",
+        "px-4 gap-x-3 gap-y-3", // 1rem margins, 0.75rem gutters on mobile
+        // Tablet: 8 columns × 10 rows, medium margins and gutters  
+        "md:grid-cols-8 md:grid-rows-[repeat(10,1fr)]",
+        "md:px-8 md:gap-x-4 md:gap-y-4", // 2rem margins, 1rem gutters on tablet
+        // Desktop: 12 columns × 16 rows, full margins and gutters
+        "lg:grid-cols-12 lg:grid-rows-[repeat(16,1fr)]",
+        "lg:px-32 lg:gap-x-6 lg:gap-y-6", // 8rem margins, 1.5rem gutters on desktop
+        "py-0", // 0 vertical margin for all sizes
         className
       )}
-      style={{
-        gridTemplateColumns: 'repeat(12, 1fr)',
-        gridTemplateRows: 'repeat(16, 1fr)',
-      }}
     >
       {showDebug && <GridDebugOverlay />}
       {children}
@@ -51,15 +63,38 @@ export const PrecisionGrid = ({ children, className }: Omit<PrecisionGridProps, 
 
 // Grid Item Component
 export const GridItem = ({ children, gridArea, className }: GridItemProps) => {
-  const [rowStart, rowEnd, colStart, colEnd] = gridArea;
+  const { desktop, tablet, mobile } = gridArea;
+  
+  // Use desktop values as fallback if responsive values not provided
+  const tabletArea = tablet || desktop;
+  const mobileArea = mobile || tablet || desktop;
+  
+  const [mobileRowStart, mobileRowEnd, mobileColStart, mobileColEnd] = mobileArea;
+  const [tabletRowStart, tabletRowEnd, tabletColStart, tabletColEnd] = tabletArea;
+  const [desktopRowStart, desktopRowEnd, desktopColStart, desktopColEnd] = desktop;
   
   return (
     <div
-      className={cn("relative", className)}
+      className={cn("relative responsive-grid-item", className)}
       style={{
-        gridRow: `${rowStart} / ${rowEnd}`,
-        gridColumn: `${colStart} / ${colEnd}`,
-      }}
+        // CSS Custom Properties for responsive positioning
+        '--mobile-row-start': mobileRowStart,
+        '--mobile-row-end': mobileRowEnd,
+        '--mobile-col-start': mobileColStart,
+        '--mobile-col-end': mobileColEnd,
+        '--tablet-row-start': tabletRowStart,
+        '--tablet-row-end': tabletRowEnd,
+        '--tablet-col-start': tabletColStart,
+        '--tablet-col-end': tabletColEnd,
+        '--desktop-row-start': desktopRowStart,
+        '--desktop-row-end': desktopRowEnd,
+        '--desktop-col-start': desktopColStart,
+        '--desktop-col-end': desktopColEnd,
+        
+        // Mobile positioning (default)
+        gridRow: `${mobileRowStart} / ${mobileRowEnd}`,
+        gridColumn: `${mobileColStart} / ${mobileColEnd}`,
+      } as React.CSSProperties}
     >
       {children}
     </div>
@@ -86,26 +121,62 @@ export const AbsoluteItem = ({ children, position, className, zIndex = 10 }: Abs
   );
 };
 
-// Debug Grid Overlay - matches the actual CSS Grid positioning
+// Debug Grid Overlay - now responsive
 const GridDebugOverlay = () => {
   return (
     <>
-      {/* Create a grid that mirrors the actual CSS Grid structure */}
-      <div 
-        className="absolute inset-0 pointer-events-none z-[9999] grid grid-cols-12 grid-rows-[repeat(16,1fr)] px-32 gap-x-6 gap-y-6"
-      >
-        {/* Generate grid cells with numbers and borders */}
-        {Array.from({ length: 16 }, (_, row) =>
-          Array.from({ length: 12 }, (_, col) => (
+      {/* Mobile Debug Grid */}
+      <div className="absolute inset-0 pointer-events-none z-[9999] grid grid-cols-4 grid-rows-[repeat(12,1fr)] px-4 gap-x-3 gap-y-3 md:hidden">
+        {Array.from({ length: GRID_CONFIGS.mobile.rows }, (_, row) =>
+          Array.from({ length: GRID_CONFIGS.mobile.cols }, (_, col) => (
             <div
-              key={`cell-${row}-${col}`}
+              key={`mobile-cell-${row}-${col}`}
               className="relative border border-red-300/30"
               style={{
                 gridRow: row + 1,
                 gridColumn: col + 1,
               }}
             >
-              {/* Cell number */}
+              <div className="absolute inset-0 flex items-center justify-center text-xs text-red-400/70 font-mono">
+                {row + 1},{col + 1}
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+
+      {/* Tablet Debug Grid */}
+      <div className="absolute inset-0 pointer-events-none z-[9999] hidden md:grid lg:hidden grid-cols-8 grid-rows-[repeat(10,1fr)] px-8 gap-x-4 gap-y-4">
+        {Array.from({ length: GRID_CONFIGS.tablet.rows }, (_, row) =>
+          Array.from({ length: GRID_CONFIGS.tablet.cols }, (_, col) => (
+            <div
+              key={`tablet-cell-${row}-${col}`}
+              className="relative border border-red-300/30"
+              style={{
+                gridRow: row + 1,
+                gridColumn: col + 1,
+              }}
+            >
+              <div className="absolute inset-0 flex items-center justify-center text-xs text-red-400/70 font-mono">
+                {row + 1},{col + 1}
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+
+      {/* Desktop Debug Grid */}
+      <div className="absolute inset-0 pointer-events-none z-[9999] hidden lg:grid grid-cols-12 grid-rows-[repeat(16,1fr)] px-32 gap-x-6 gap-y-6">
+        {Array.from({ length: GRID_CONFIGS.desktop.rows }, (_, row) =>
+          Array.from({ length: GRID_CONFIGS.desktop.cols }, (_, col) => (
+            <div
+              key={`desktop-cell-${row}-${col}`}
+              className="relative border border-red-300/30"
+              style={{
+                gridRow: row + 1,
+                gridColumn: col + 1,
+              }}
+            >
               <div className="absolute inset-0 flex items-center justify-center text-xs text-red-400/70 font-mono">
                 {row + 1},{col + 1}
               </div>
@@ -134,7 +205,6 @@ export const GridDebugProvider = ({ children }: { children: ReactNode }) => {
   return (
     <DebugContext.Provider value={{ showDebug, toggleDebug }}>
       {children}
-
     </DebugContext.Provider>
   );
 };

@@ -105,11 +105,11 @@ Gutters: 16px (1rem) both directions
 Use Case: Two-column layouts, side-by-side content
 ```
 
-### Desktop (≥1024px) - 12×16 Grid
+### Desktop (≥1024px) - 16×16 Grid
 ```
-Columns: 12 (full design flexibility)
+Columns: 16 (full design flexibility)
 Rows: 16 (maximum vertical control)
-Margins: 128px (8rem) horizontal
+Margins: 32px (2rem) horizontal
 Gutters: 24px (1.5rem) both directions
 Use Case: Complex layouts, multi-column designs
 ```
@@ -334,13 +334,13 @@ Center element: [45, 45, 10, 10]
 The system automatically adapts coordinates between grid sizes:
 
 ```tsx
-// Desktop coordinate [6, 10, 3, 9] on 12×16 grid
+// Desktop coordinate [6, 10, 3, 9] on 16×16 grid
 // Becomes approximately [4, 7, 2, 6] on 8×10 grid
 // Becomes approximately [3, 6, 1, 3] on 4×12 grid
 
 const adaptedArea = adaptGridCoordinates(
   [6, 10, 3, 9],              // Desktop coordinates
-  { cols: 12, rows: 16 },     // From desktop grid
+  { cols: 16, rows: 16 },     // From desktop grid
   { cols: 4, rows: 12 }       // To mobile grid
 );
 ```
@@ -370,7 +370,7 @@ const { showDebug, toggleDebug } = useContext(DebugContext);
 
 - **Mobile**: Red 4×12 grid overlay
 - **Tablet**: Red 8×10 grid overlay  
-- **Desktop**: Red 12×16 grid overlay
+- **Desktop**: Red 16×16 grid overlay
 
 ## Technical Implementation
 

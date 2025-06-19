@@ -29,7 +29,7 @@ interface AbsoluteItemProps {
 const GRID_CONFIGS = {
   mobile: { cols: 4, rows: 12 },   // sm and below
   tablet: { cols: 8, rows: 10 },  // md
-  desktop: { cols: 12, rows: 16 }, // lg+
+  desktop: { cols: 16, rows: 16 }, // lg+
 } as const;
 
 // Main Grid Container
@@ -48,9 +48,9 @@ export const PrecisionGrid = ({ children, className }: Omit<PrecisionGridProps, 
         // Tablet: 8 columns × 10 rows, medium margins and gutters  
         "md:grid-cols-8 md:grid-rows-[repeat(10,1fr)]",
         "md:px-8 md:gap-x-4 md:gap-y-4", // 2rem margins, 1rem gutters on tablet
-        // Desktop: 12 columns × 16 rows, full margins and gutters
-        "lg:grid-cols-12 lg:grid-rows-[repeat(16,1fr)]",
-        "lg:px-32 lg:gap-x-6 lg:gap-y-6", // 8rem margins, 1.5rem gutters on desktop
+        // Desktop: 16 columns × 16 rows, full margins and gutters
+        "lg:grid-cols-16 lg:grid-rows-[repeat(16,1fr)]",
+        "lg:px-8 lg:gap-x-6 lg:gap-y-6", // 2rem margins, 1.5rem gutters on desktop
         "py-0", // 0 vertical margin for all sizes
         className
       )}
@@ -166,7 +166,7 @@ const GridDebugOverlay = () => {
       </div>
 
       {/* Desktop Debug Grid */}
-      <div className="absolute inset-0 pointer-events-none z-[9999] hidden lg:grid grid-cols-12 grid-rows-[repeat(16,1fr)] px-32 gap-x-6 gap-y-6">
+      <div className="absolute inset-0 pointer-events-none z-[9999] hidden lg:grid grid-cols-16 grid-rows-[repeat(16,1fr)] px-8 gap-x-6 gap-y-6">
         {Array.from({ length: GRID_CONFIGS.desktop.rows }, (_, row) =>
           Array.from({ length: GRID_CONFIGS.desktop.cols }, (_, col) => (
             <div

@@ -17,7 +17,7 @@ export const BREAKPOINTS = {
 export const GRID_CONFIGS = {
   mobile: { cols: 4, rows: 12 },   // sm and below
   tablet: { cols: 8, rows: 10 },  // md
-  desktop: { cols: 12, rows: 16 }, // lg+
+  desktop: { cols: 16, rows: 16 }, // lg+
 } as const;
 
 export type ResponsiveGridArea = {

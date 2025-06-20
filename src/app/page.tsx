@@ -1,9 +1,12 @@
 import HeroSection from '@/components/sections/HeroSection';
+import HeroVideoSection from '@/components/sections/HeroVideoSection';
+import FlowingLinesBackground from '@/components/sections/FlowingLinesBackground';
+import ParticleBackground from '@/components/ui/ParticleBackground';
 
 export default function HomePage() {
   return (
     <main>
-      <HeroSection />
+      <ParticleBackground />
     </main>
   );
 }

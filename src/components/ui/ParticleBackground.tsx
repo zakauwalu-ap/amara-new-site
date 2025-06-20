@@ -6,9 +6,9 @@ import type { Container, Engine, ISourceOptions } from "@tsparticles/engine";
 import { loadSlim } from "@tsparticles/slim";
 
 interface ParticleBackgroundProps {
-  /** Number of particles to render (default: 100) */
+  /** Number of particles to render (default: 80) */
   particleCount?: number;
-  /** Primary color for particles and links (default: "#ffffff") */
+  /** Primary color for particles and links (default: "#DBCDAE" - brand gold) */
   color?: string;
   /** Movement speed of particles (default: 1.5) */
   speed?: number;
@@ -23,9 +23,9 @@ interface ParticleBackgroundProps {
 }
 
 export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
-  particleCount = 100,
-  color = "#ffffff",
-  speed = 1.5,
+  particleCount = 80,
+  color = "#DBCDAE", // Brand gold
+  speed = 1.2,
   enableLinks = true,
   interactive = true,
   zIndex = -1,
@@ -44,11 +44,7 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
 
   // Callback when particles are loaded
   const particlesLoaded = useCallback(async (container?: Container) => {
-    console.log("Particles loaded:", container);
-    if (container) {
-      console.log("Particle count:", container.particles.count);
-      console.log("Canvas dimensions:", container.canvas.size);
-    }
+    // Clean callback without debugging
   }, []);
 
   // Memoize particle configuration for performance
@@ -63,13 +59,10 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
       return particleCount;
     };
 
-    const finalParticleCount = getResponsiveParticleCount();
-    console.log("Configured particle count:", finalParticleCount);
-
     return {
       background: {
         color: {
-          value: "#000000", // Temporary dark background for debugging
+          value: "transparent", // Let CSS handle the gradient background
         },
       },
       fpsLimit: 120,
@@ -93,7 +86,7 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
             quantity: 4,
           },
           repulse: {
-            distance: 100,
+            distance: 120,
             duration: 0.4,
           },
           bubble: {
@@ -106,14 +99,14 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
       },
       particles: {
         color: {
-          value: "#00ff00", // Bright green for debugging
+          value: color,
         },
         links: {
-          color: "#ff0000", // Bright red links for debugging
+          color: color,
           distance: 150,
           enable: enableLinks,
-          opacity: 0.8, // Higher opacity for debugging
-          width: 2, // Thicker lines for debugging
+          opacity: 0.4,
+          width: 1,
         },
         move: {
           direction: "none",
@@ -130,18 +123,18 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
             enable: true,
             area: 800,
           },
-          value: finalParticleCount,
+          value: getResponsiveParticleCount(),
         },
         opacity: {
-          value: 1.0, // Full opacity for debugging
+          value: 0.7,
           random: {
-            enable: false, // Disable random opacity for debugging
-            minimumValue: 0.3,
+            enable: true,
+            minimumValue: 0.4,
           },
           animation: {
-            enable: false, // Disable animation for debugging
+            enable: true,
             speed: 1,
-            minimumValue: 0.3,
+            minimumValue: 0.4,
             sync: false,
           },
         },
@@ -149,9 +142,9 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
           type: "circle",
         },
         size: {
-          value: { min: 5, max: 10 }, // Larger particles for debugging
+          value: { min: 1, max: 3 },
           animation: {
-            enable: false, // Disable animation for debugging
+            enable: true,
             speed: 2,
             minimumValue: 1,
             sync: false,
@@ -159,29 +152,68 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
         },
       },
       detectRetina: true,
-      // Remove motion reduce for debugging
-      // motion: {
-      //   disable: false,
-      //   reduce: {
-      //     factor: 4,
-      //     value: true,
-      //   },
-      // },
+      // Respect user's motion preferences for accessibility
+      motion: {
+        disable: false,
+        reduce: {
+          factor: 4,
+          value: true,
+        },
+      },
+      // Responsive configuration
+      responsive: [
+        {
+          maxWidth: 768,
+          options: {
+            particles: {
+              number: {
+                value: Math.floor(particleCount * 0.6),
+              },
+              move: {
+                speed: speed * 0.8,
+              },
+              links: {
+                distance: 120,
+              },
+            },
+            interactivity: {
+              events: {
+                onHover: {
+                  enable: false, // Disable hover on mobile for performance
+                },
+              },
+            },
+          },
+        },
+        {
+          maxWidth: 1024,
+          options: {
+            particles: {
+              number: {
+                value: Math.floor(particleCount * 0.8),
+              },
+            },
+          },
+        },
+      ],
     };
   }, [particleCount, color, speed, enableLinks, interactive]);
 
   // Don't render until particles engine is initialized
   if (!init) {
-    console.log("Particles engine not initialized yet");
-    return <div className="fixed inset-0 bg-red-500 opacity-50 z-50">Loading particles...</div>; // Debugging fallback
+    return null;
   }
-
-  console.log("Rendering particles with init:", init);
 
   return (
     <div
       className={`fixed inset-0 w-full h-full ${className}`}
-      style={{ zIndex: 10 }} // Temporary high z-index for debugging
+      style={{ 
+        zIndex,
+        background: `
+          radial-gradient(ellipse at top left, rgba(73, 102, 179, 0.8) 0%, rgba(73, 102, 179, 0.4) 50%, rgba(12, 21, 40, 0.9) 100%),
+          linear-gradient(135deg, #4966B3 0%, #364F9F 25%, #2D4395 50%, #1E2B5C 75%, #0C1528 100%)
+        `
+      }}
       aria-hidden="true" // Hide from screen readers as it's decorative
     >
       <Particles

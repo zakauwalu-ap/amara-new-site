@@ -120,7 +120,7 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
             trail: {
               length: {
                 min: 15,
-                max: 40,
+                max: 100,
               },
               minWidth: 1,
               maxWidth: 3,

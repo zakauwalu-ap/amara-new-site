@@ -49,19 +49,19 @@ const HeroNavigation: React.FC = () => {
 const HeroImageContainer: React.FC = () => {
   return (
     <div 
-      className="lg:col-start-2 lg:col-end-10 flex items-center justify-center"
+      className="lg:col-start-2 lg:col-end-9"
       data-testid="hero-image-container"
       data-component="hero-image-container"
     >
-      <div className="relative w-full h-full min-h-[400px] lg:min-h-[500px]">
-        <Image
-          src="/sora-pics/textured-geological-layers.png"
-          alt="Textured geological layers representing the solid foundation of legal expertise"
-          fill
-          className="object-cover rounded-lg"
-          priority
-        />
-      </div>
+      <Image
+        src="/sora-pics/textured-geological-layers.png"
+        alt="Small digital blocks splitting from a large cube"
+        width={524}
+        height={740}
+        className="w-full h-auto"
+        priority
+        style={{ color: 'transparent' }}
+      />
     </div>
   );
 };
@@ -69,16 +69,11 @@ const HeroImageContainer: React.FC = () => {
 const HeroContentContainer: React.FC = () => {
   return (
     <div 
-      className="lg:col-start-10 lg:col-end-17 flex items-center justify-start lg:pl-8"
+      className="lg:col-start-10 lg:col-end-15 flex items-center justify-start"
       data-testid="hero-content-container"
       data-component="hero-content-container"
     >
-      <div className="max-w-lg">
-        <h1 className="font-serif text-hero text-brand-blue leading-tight tracking-wide">
-          <span className="block">redefining</span>
-          <span className="block">legal excellence</span>
-        </h1>
-      </div>
+      {/* Empty for now - content will be added later */}
     </div>
   );
 };
@@ -87,12 +82,12 @@ const HeroContentContainer: React.FC = () => {
 const HeroBanner: React.FC = () => {
   return (
     <div 
-      className="flex-1 bg-neutral-50 px-6 py-12"
+      className="flex-1 bg-neutral-50 py-6"
       data-component="hero-banner"
       data-testid="hero-banner"
     >
-      {/* 16-column grid container */}
-      <div className="w-full h-full grid grid-cols-1 lg:grid-cols-16 gap-4 max-w-screen-2xl mx-auto">
+      {/* 16-column grid container with fixed padding and gap */}
+      <div className="h-full grid grid-cols-1 lg:grid-cols-16 gap-8 lg:mx-15">
         <HeroImageContainer />
         <HeroContentContainer />
       </div>

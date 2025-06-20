@@ -1,11 +1,12 @@
 import React from 'react';
 import Image from 'next/image';
 
-// Sub-component for the navigation bar
+// ==================== NAVIGATION COMPONENT ====================
+
 const HeroNavigation: React.FC = () => {
   return (
     <nav 
-      className="w-full bg-white border-b border-neutral-200 px-6 py-4"
+      className="w-full bg-white border-b border-neutral-200 px-6 py-4 my-6"
       data-component="hero-navigation"
       data-testid="hero-navigation"
     >
@@ -44,7 +45,25 @@ const HeroNavigation: React.FC = () => {
   );
 };
 
-// ==================== EXTRACTED COMPONENTS ====================
+// ==================== BANNER WRAPPER COMPONENT ====================
+
+const HeroBanner: React.FC = () => {
+  return (
+    <div 
+      className="flex-1 bg-neutral-50"
+      data-component="hero-banner"
+      data-testid="hero-banner"
+    >
+      {/* 16-column grid container with fixed padding and gap */}
+      <div className="h-full grid grid-cols-1 lg:grid-cols-16 gap-8 lg:mx-16">
+        <HeroImageContainer />
+        <HeroContentContainer />
+      </div>
+    </div>
+  );
+};
+
+// ==================== IMAGE COMPONENT ====================
 
 const HeroImageContainer: React.FC = () => {
   return (
@@ -66,6 +85,8 @@ const HeroImageContainer: React.FC = () => {
   );
 };
 
+// ==================== CONTENT COMPONENTS ====================
+
 const HeroContentContainer: React.FC = () => {
   return (
     <div 
@@ -73,31 +94,46 @@ const HeroContentContainer: React.FC = () => {
       data-testid="hero-content-container"
       data-component="hero-content-container"
     >
-      {/* Empty for now - content will be added later */}
-    </div>
-  );
-};
-
-// Sub-component for the hero banner content
-const HeroBanner: React.FC = () => {
-  return (
-    <div 
-      className="flex-1 bg-neutral-50 py-6"
-      data-component="hero-banner"
-      data-testid="hero-banner"
-    >
-      {/* 16-column grid container with fixed padding and gap */}
-      <div className="h-full grid grid-cols-1 lg:grid-cols-16 gap-8 lg:mx-15">
-        <HeroImageContainer />
-        <HeroContentContainer />
+      {/* Nested 5-column grid */}
+      <div className="w-full grid grid-cols-5 gap-4">
+        <HeroTitle />
+        <HeroDescription />
       </div>
     </div>
   );
 };
 
-// ==================== MAIN SECTION ====================
+const HeroTitle: React.FC = () => {
+  return (
+    <div 
+      className="col-span-5 relative z-10"
+      data-testid="hero-title"
+      data-component="hero-title"
+    >
+      <h1 className="text-4xl lg:text-6xl font-bold text-neutral-900 leading-tight">
+        <span className="block">redefining</span>
+        <span className="block">legal excellence</span>
+      </h1>
+    </div>
+  );
+};
 
-// Main HeroSection component
+const HeroDescription: React.FC = () => {
+  return (
+    <div 
+      className="col-span-5 lg:col-start-2 lg:col-span-4 relative z-20 pt-8"
+      data-testid="hero-description"
+      data-component="hero-description"
+    >
+      <p className="text-lg text-neutral-700 leading-relaxed">
+        At Amara & Partners, we see law not as a rigid set of rules, but as a dynamic framework for innovation and growth. We navigate the complexities of today's global landscape to deliver clear, strategic outcomes. Your ambition defines the destination. <strong>Allow us to illuminate the path and join you on the journey.</strong>
+      </p>
+    </div>
+  );
+};
+
+// ==================== MAIN SECTION COMPONENT ====================
+
 const HeroSection: React.FC = () => {
   return (
     <section 

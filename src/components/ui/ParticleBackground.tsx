@@ -3,7 +3,7 @@
 import React, { useCallback, useMemo, useEffect, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import type { Container, Engine, ISourceOptions } from "@tsparticles/engine";
-import { loadSlim } from "@tsparticles/slim";
+import { loadFull } from "tsparticles";
 
 interface ParticleBackgroundProps {
   /** Number of particles to render (default: 80) */
@@ -36,7 +36,7 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
   // Initialize particles engine - this should run only once per application lifetime
   useEffect(() => {
     initParticlesEngine(async (engine) => {
-      await loadSlim(engine);
+      await loadFull(engine);
     }).then(() => {
       setInit(true);
     });
@@ -75,7 +75,7 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
           },
           onHover: {
             enable: interactive,
-            mode: "repulse",
+            mode: "attract",
           },
           resize: {
             enable: true,
@@ -88,6 +88,11 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
           repulse: {
             distance: 120,
             duration: 0.4,
+          },
+          attract: {
+            distance: 200,
+            factor: 3,
+            speed: 1,
           },
           bubble: {
             distance: 200,
@@ -107,6 +112,11 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
           enable: enableLinks,
           opacity: 0.4,
           width: 1,
+          warp: true, // Enable wavy/curved links
+          triangles: {
+            enable: true,
+            opacity: 0.1,
+          },
         },
         move: {
           direction: "none",
@@ -117,6 +127,13 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
           random: false,
           speed: speed,
           straight: false,
+          attract: {
+            enable: true,
+            rotate: {
+              x: 600,
+              y: 600,
+            },
+          },
         },
         number: {
           density: {
@@ -180,6 +197,13 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
               events: {
                 onHover: {
                   enable: false, // Disable hover on mobile for performance
+                },
+              },
+              modes: {
+                attract: {
+                  distance: 150,
+                  factor: 2,
+                  speed: 0.8,
                 },
               },
             },

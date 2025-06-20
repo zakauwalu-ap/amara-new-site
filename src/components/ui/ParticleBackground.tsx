@@ -4,6 +4,7 @@ import React, { useCallback, useMemo, useEffect, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import type { Container, Engine, ISourceOptions } from "@tsparticles/engine";
 import { loadFull } from "tsparticles";
+import { loadTrailEffect } from "@tsparticles/effect-trail";
 
 interface ParticleBackgroundProps {
   /** Number of particles to render (default: 80) */
@@ -37,6 +38,7 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
   useEffect(() => {
     initParticlesEngine(async (engine) => {
       await loadFull(engine);
+      await loadTrailEffect(engine);
     }).then(() => {
       setInit(true);
     });
@@ -86,19 +88,21 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
             quantity: 4,
           },
           repulse: {
-            distance: 120,
-            duration: 0.4,
+            distance: 150,
+            duration: 0.6,
+            factor: 3,
+            speed: 2,
           },
           attract: {
-            distance: 200,
-            factor: 3,
-            speed: 1,
+            distance: 250,
+            factor: 5,
+            speed: 2,
           },
           bubble: {
             distance: 200,
-            size: 4,
+            size: 6,
             duration: 2,
-            opacity: 0.8,
+            opacity: 0.9,
           },
         },
       },
@@ -107,15 +111,21 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
           value: color,
         },
         links: {
-          color: color,
-          distance: 150,
-          enable: enableLinks,
-          opacity: 0.4,
-          width: 1,
-          warp: true, // Enable wavy/curved links
-          triangles: {
-            enable: true,
-            opacity: 0.1,
+          enable: false, // Disable particle links
+        },
+        // Add trail effect configuration
+        effect: {
+          type: "trail",
+          options: {
+            trail: {
+              length: {
+                min: 15,
+                max: 40,
+              },
+              minWidth: 1,
+              maxWidth: 3,
+              fade: true,
+            },
           },
         },
         move: {
@@ -124,14 +134,26 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
           outModes: {
             default: "bounce",
           },
-          random: false,
-          speed: speed,
+          random: true, // Changed to true for more dynamic movement
+          speed: speed * 1.2, // Increased speed for better trail visibility
           straight: false,
           attract: {
             enable: true,
             rotate: {
               x: 600,
               y: 600,
+            },
+          },
+          // Add more dynamic movement patterns
+          path: {
+            enable: true,
+            options: {
+              sides: {
+                count: {
+                  min: 4,
+                  max: 8,
+                },
+              },
             },
           },
         },
@@ -143,15 +165,15 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
           value: getResponsiveParticleCount(),
         },
         opacity: {
-          value: 0.7,
+          value: 0.8,
           random: {
             enable: true,
-            minimumValue: 0.4,
+            minimumValue: 0.5,
           },
           animation: {
             enable: true,
-            speed: 1,
-            minimumValue: 0.4,
+            speed: 1.5,
+            minimumValue: 0.5,
             sync: false,
           },
         },
@@ -159,11 +181,11 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
           type: "circle",
         },
         size: {
-          value: { min: 1, max: 3 },
+          value: { min: 2, max: 4 },
           animation: {
             enable: true,
-            speed: 2,
-            minimumValue: 1,
+            speed: 3,
+            minimumValue: 2,
             sync: false,
           },
         },
@@ -188,9 +210,6 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
               },
               move: {
                 speed: speed * 0.8,
-              },
-              links: {
-                distance: 120,
               },
             },
             interactivity: {

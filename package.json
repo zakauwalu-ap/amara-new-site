@@ -12,6 +12,7 @@
     "clean": "rm -rf .next"
   },
   "dependencies": {
+    "@tsparticles/effect-trail": "^3.8.1",
     "@tsparticles/engine": "^3.8.1",
     "@tsparticles/react": "^3.0.0",
     "clsx": "^2.1.1",

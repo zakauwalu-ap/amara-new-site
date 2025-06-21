@@ -55,7 +55,7 @@ const HeroBanner: React.FC = () => {
       data-testid="hero-banner"
     >
       {/* 16-column grid container with fixed padding and gap */}
-      <div className="h-full grid grid-cols-1 lg:grid-cols-16 gap-8 lg:mx-16">
+      <div className="h-full grid grid-cols-1 lg:grid-cols-16 gap-16 lg:mx-16">
         <HeroImageContainer />
         <HeroContentContainer />
       </div>
@@ -68,7 +68,7 @@ const HeroBanner: React.FC = () => {
 const HeroImageContainer: React.FC = () => {
   return (
     <div 
-      className="lg:col-start-2 lg:col-end-9 relative z-10"
+      className="lg:col-start-2 lg:col-end-9 relative z-10 py-24"
       data-testid="hero-image-container"
       data-component="hero-image-container"
     >
@@ -94,7 +94,7 @@ const HeroImageContainer: React.FC = () => {
 const HeroContentContainer: React.FC = () => {
   return (
     <div 
-      className="lg:col-start-10 lg:col-end-15 flex items-center justify-start relative z-10"
+      className="lg:col-start-9 lg:col-end-15 flex items-center justify-start relative z-10"
       data-testid="hero-content-container"
       data-component="hero-content-container"
     >

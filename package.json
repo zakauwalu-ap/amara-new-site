@@ -12,6 +12,7 @@
     "clean": "rm -rf .next"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "@tsparticles/effect-trail": "^3.8.1",
     "@tsparticles/engine": "^3.8.1",
     "@tsparticles/path-svg": "^3.8.1",

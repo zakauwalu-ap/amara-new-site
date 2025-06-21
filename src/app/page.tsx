@@ -10,8 +10,9 @@ export default function HomePage() {
   return (
     <main>
       <PathLinesBackground
-        strokeColor="rgb(115, 115, 115)" // neutral-500
-        opacity={0.5}
+        stroke="none"
+        fill="hsl(41, 90%, 77%)"
+        opacity={0.4}
         className="text-neutral-400"
       />
       <HeroSection />

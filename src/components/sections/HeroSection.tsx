@@ -1,5 +1,9 @@
-import React from 'react';
+"use client";
+
+import React, { useRef } from 'react';
 import Image from 'next/image';
+import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 // ==================== NAVIGATION COMPONENT ====================
 
@@ -48,17 +52,47 @@ const HeroNavigation: React.FC = () => {
 // ==================== BANNER WRAPPER COMPONENT ====================
 
 const HeroBanner: React.FC = () => {
+  const heroBannerRef = useRef<HTMLDivElement>(null);
+  const wipePanelRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    if (wipePanelRef.current && heroBannerRef.current) {
+      // Set initial state of the wipe panel: covering the content
+      gsap.set(wipePanelRef.current, { xPercent: 0 });
+
+      const tl = gsap.timeline({
+        delay: 0.5 // Brief pause before the wipe out starts
+      });
+
+      // Animate wipe panel out to the right, revealing the content
+      tl.to(wipePanelRef.current, {
+        xPercent: 100,
+        duration: 1.2,
+        ease: "power3.inOut",
+      });
+    }
+  }); // Scoping removed to prevent animation interference
+
   return (
     <div 
-      className="flex-1 bg-transparent"
+      ref={heroBannerRef}
+      className="flex-1 bg-transparent relative overflow-hidden"
       data-component="hero-banner"
       data-testid="hero-banner"
     >
       {/* 16-column grid container with fixed padding and gap */}
-      <div className="h-full grid grid-cols-1 lg:grid-cols-16 gap-16 lg:mx-16">
+      <div className="h-full grid grid-cols-1 lg:grid-cols-16 gap-16 lg:mx-16 relative z-10">
         <HeroImageContainer />
         <HeroContentContainer />
       </div>
+
+      {/* Wipe Panel */}
+      <div
+        ref={wipePanelRef}
+        className="absolute inset-0 bg-brand-blue z-20"
+        data-component="hero-wipe-panel"
+        style={{ backgroundColor: '#4966B3' }}
+      />
     </div>
   );
 };

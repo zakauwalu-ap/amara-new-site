@@ -68,11 +68,11 @@ const HeroBanner: React.FC = () => {
 const HeroImageContainer: React.FC = () => {
   return (
     <div 
-      className="lg:col-start-2 lg:col-end-9 relative z-10 py-24"
+      className="lg:col-start-1 lg:col-end-8 relative z-10 py-24 pointer-events-none"
       data-testid="hero-image-container"
       data-component="hero-image-container"
     >
-      <div className="relative">
+      <div className="relative pointer-events-auto">
         <Image
           src="/sora-pics/textured-geological-layers.png"
           alt="Small digital blocks splitting from a large cube"
@@ -94,12 +94,12 @@ const HeroImageContainer: React.FC = () => {
 const HeroContentContainer: React.FC = () => {
   return (
     <div 
-      className="lg:col-start-9 lg:col-end-15 flex items-center justify-start relative z-10"
+      className="lg:col-start-9 lg:col-end-15 flex items-center justify-start relative pt-36 z-10 pointer-events-none"
       data-testid="hero-content-container"
       data-component="hero-content-container"
     >
       {/* Nested 5-column grid */}
-      <div className="w-full grid grid-cols-5 gap-4">
+      <div className="w-full grid grid-cols-5 gap-4 pointer-events-auto">
         <HeroTitle />
         <HeroDescription />
       </div>
@@ -110,7 +110,7 @@ const HeroContentContainer: React.FC = () => {
 const HeroTitle: React.FC = () => {
   return (
     <div 
-      className="col-span-5 relative z-10"
+      className="col-span-5 relative z-10 pointer-events-auto"
       data-testid="hero-title"
       data-component="hero-title"
     >
@@ -125,7 +125,7 @@ const HeroTitle: React.FC = () => {
 const HeroDescription: React.FC = () => {
   return (
     <div 
-      className="col-span-5 lg:col-start-2 lg:col-span-4 relative z-20 pt-8"
+      className="col-span-5 lg:col-start-2 lg:col-span-4 relative z-20 pt-8 pointer-events-auto"
       data-testid="hero-description"
       data-component="hero-description"
     >

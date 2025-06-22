@@ -130,7 +130,7 @@ const BackgroundLines: React.FC<BackgroundLinesProps> = ({
             stroke={defaultHslString} 
             strokeWidth={strokeWidth} 
             fill="none" 
-            opacity="0.4"
+            opacity="0.6"
           />
           <path 
             id="path6" 
@@ -138,7 +138,7 @@ const BackgroundLines: React.FC<BackgroundLinesProps> = ({
             stroke={defaultHslString} 
             strokeWidth={strokeWidth} 
             fill="none" 
-            opacity="0.3"
+            opacity="0.6"
           />
           <path 
             id="path5" 
@@ -154,7 +154,7 @@ const BackgroundLines: React.FC<BackgroundLinesProps> = ({
             stroke={defaultHslString} 
             strokeWidth={strokeWidth} 
             fill="none" 
-            opacity="0.5"
+            opacity="0.6"
           />
           <path 
             id="path3" 
@@ -162,7 +162,7 @@ const BackgroundLines: React.FC<BackgroundLinesProps> = ({
             stroke={defaultHslString} 
             strokeWidth={strokeWidth} 
             fill="none" 
-            opacity="0.4"
+            opacity="0.6"
           />
           <path 
             id="path2" 
@@ -170,7 +170,7 @@ const BackgroundLines: React.FC<BackgroundLinesProps> = ({
             stroke={defaultHslString} 
             strokeWidth={strokeWidth} 
             fill="none" 
-            opacity="0.3"
+            opacity="0.6"
           />
           <path 
             id="path1" 
@@ -178,7 +178,7 @@ const BackgroundLines: React.FC<BackgroundLinesProps> = ({
             stroke={defaultHslString} 
             strokeWidth={strokeWidth} 
             fill="none" 
-            opacity="0.7"
+            opacity="0.6"
           />
         </g>
       </svg>

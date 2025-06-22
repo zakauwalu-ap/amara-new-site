@@ -6,7 +6,7 @@ import Image from 'next/image';
 const HeroNavigation: React.FC = () => {
   return (
     <nav 
-      className="w-full bg-transparent/0 backdrop-blur-sm border-b border-white/10 px-6 py-4 my-6 relative z-50"
+      className="w-full bg-transparent px-6 py-4 my-6 relative z-50"
       data-component="hero-navigation"
       data-testid="hero-navigation"
     >

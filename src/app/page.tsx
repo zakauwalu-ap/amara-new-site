@@ -11,7 +11,7 @@ export default function HomePage() {
         defaultLightness={77}   // Default L value
         hoverLightness={60}     // Darker L for hover
         intermediateLightness={90} // Lighter L for intermediate stage
-        strokeWidth={3}         // Stroke width for paths
+        strokeWidth={5}         // Stroke width for paths
       />
       <HeroSection />
     </main>
